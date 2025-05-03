@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SHIFT Clicker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <audio id="tapSound" src="https://assets.mixkit.co/sfx/download/mixkit-click-melodic-tone-1129.mp3"></audio>
+  <audio id="bankSound" src="https://assets.mixkit.co/sfx/download/mixkit-game-bonus-reached-2065.mp3"></audio>
+</head>
+<body>
+  <div class="container">
+    <h1>SHIFT Clicker</h1>
+    <p>Уровень: <span id="level">1</span></p>
+    <p>SHIFT: <span id="shift">0</span></p>
+    <p>Taps: <span id="taps">0</span></p>
+    <button id="tapBtn">Тапнуть (+<span id="gainPerTap">1</span> SHIFT)</button>
+
+    <div class="shop">
+      <h3>Магазин</h3>
+      <button id="buyAutoClicker">Автокликер (10 SHIFT)</button>
+      <button id="levelUp">Уровень (20 SHIFT)</button>
+      <button id="buyBooster">x2 на 30 сек (50 SHIFT)</button>
+      <button id="collectBank">Собрать SHIFT-Банк</button>
+    </div>
+
+    <div id="bankProgressContainer">
+      <div id="bankProgressBar"></div>
+    </div>
+
+    <div class="progress">
+      <h3>Достижения</h3>
+      <ul id="achievementsList"></ul>
+    </div>
+
+    <button id="sendBtn">Отправить результат</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
