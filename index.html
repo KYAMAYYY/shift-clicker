@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SHIFT Clicker</title>
+  <title>SHIFT Clicker — Cyberpunk</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <audio id="tapSound" src="https://assets.mixkit.co/sfx/download/mixkit-click-melodic-tone-1129.mp3"></audio>
@@ -11,30 +11,44 @@
 </head>
 <body>
   <div class="container">
-    <h1>SHIFT Clicker</h1>
-    <p>Уровень: <span id="level">1</span></p>
-    <p>SHIFT: <span id="shift">0</span></p>
-    <p>Taps: <span id="taps">0</span></p>
-    <button id="tapBtn">Тапнуть (+<span id="gainPerTap">1</span> SHIFT)</button>
+    <h1 class="glow">SHIFT Clicker</h1>
+    <div class="status-panel">
+      <p>Уровень: <span id="level">1</span></p>
+      <p>SHIFT: <span id="shift">0</span></p>
+      <p>Taps: <span id="taps">0</span></p>
+    </div>
+
+    <button id="tapBtn" class="glow-btn">ТАПНИ! +<span id="gainPerTap">1</span> SHIFT</button>
 
     <div class="shop">
-      <h3>Магазин</h3>
-      <button id="buyAutoClicker">Автокликер (10 SHIFT)</button>
-      <button id="levelUp">Уровень (20 SHIFT)</button>
-      <button id="buyBooster">x2 на 30 сек (50 SHIFT)</button>
-      <button id="collectBank">Собрать SHIFT-Банк</button>
+      <h3 class="glow-small">Апгрейды</h3>
+      <button id="buyAutoClicker" class="neon-btn">Автокликер</button>
+      <button id="levelUp" class="neon-btn">Уровень UP</button>
+      <button id="buyBooster" class="neon-btn">x2 Booster</button>
+      <button id="collectBank" class="neon-btn">Собрать Банк</button>
     </div>
 
     <div id="bankProgressContainer">
       <div id="bankProgressBar"></div>
     </div>
 
-    <div class="progress">
-      <h3>Достижения</h3>
-      <ul id="achievementsList"></ul>
+    <div class="missions">
+      <h3 class="glow-small">Миссии</h3>
+      <ul id="missionsList">
+        <li>Сделай 10 тапов</li>
+        <li>Накопи 100 SHIFT</li>
+        <li>Купи автокликер</li>
+      </ul>
     </div>
 
-    <button id="sendBtn">Отправить результат</button>
+    <div class="leaderboard">
+      <h3 class="glow-small">Рейтинг</h3>
+      <ul id="leaderboardList">
+        <li>Подключение...</li>
+      </ul>
+    </div>
+
+    <button id="sendBtn" class="glow-btn">Отправить данные</button>
   </div>
 
   <script src="script.js"></script>

@@ -1,22 +1,40 @@
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #111;
-  color: #eee;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(180deg, #0a0a0a, #1f0033);
+  color: #00ffff;
   text-align: center;
   padding: 20px;
+  overflow-x: hidden;
+}
+.glow {
+  text-shadow: 0 0 10px #00f0ff;
+  color: #00f0ff;
+}
+.glow-small {
+  text-shadow: 0 0 5px #00f0ff;
 }
 button {
-  padding: 10px 20px;
   margin: 10px;
-  font-size: 16px;
 }
-.shop, .progress {
-  margin-top: 20px;
+.glow-btn, .neon-btn {
+  background-color: transparent;
+  border: 2px solid #00f0ff;
+  color: #00f0ff;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.glow-btn:hover, .neon-btn:hover {
+  background-color: #00f0ff20;
+  box-shadow: 0 0 15px #00f0ff;
 }
 #bankProgressContainer {
   width: 80%;
   height: 20px;
-  background-color: #555;
+  background-color: #333;
   margin: 10px auto;
   border-radius: 10px;
   overflow: hidden;
@@ -24,23 +42,17 @@ button {
 #bankProgressBar {
   width: 0%;
   height: 100%;
-  background-color: #00ff99;
+  background: linear-gradient(90deg, #00ffff, #ff00ff);
   transition: width 0.3s ease;
 }
-.floating-text {
-  position: absolute;
-  color: #00ffcc;
-  font-size: 20px;
-  animation: floatUp 1s ease-out forwards;
-  pointer-events: none;
+.container {
+  max-width: 500px;
+  margin: auto;
 }
-@keyframes floatUp {
-  from {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
+.status-panel, .missions, .leaderboard, .shop {
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid #00f0ff44;
+  border-radius: 10px;
+  padding: 10px;
 }
