@@ -1,11 +1,23 @@
-
 body {
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(180deg, #0a0a0a, #1f0033);
+  background: #000;
   color: #00ffff;
   text-align: center;
   padding: 20px;
   overflow-x: hidden;
+  position: relative;
+}
+.background-pixels {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://i.imgur.com/1sLkY0H.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  z-index: -1;
 }
 .glow {
   text-shadow: 0 0 10px #00f0ff;
@@ -17,7 +29,7 @@ body {
 button {
   margin: 10px;
 }
-.glow-btn, .neon-btn {
+.glow-btn, .neon-btn, .tab-btn {
   background-color: transparent;
   border: 2px solid #00f0ff;
   color: #00f0ff;
@@ -27,32 +39,28 @@ button {
   cursor: pointer;
   transition: 0.2s ease;
 }
-.glow-btn:hover, .neon-btn:hover {
+.glow-btn:hover, .neon-btn:hover, .tab-btn:hover {
   background-color: #00f0ff20;
   box-shadow: 0 0 15px #00f0ff;
-}
-#bankProgressContainer {
-  width: 80%;
-  height: 20px;
-  background-color: #333;
-  margin: 10px auto;
-  border-radius: 10px;
-  overflow: hidden;
-}
-#bankProgressBar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #00ffff, #ff00ff);
-  transition: width 0.3s ease;
 }
 .container {
   max-width: 500px;
   margin: auto;
+  position: relative;
+  z-index: 1;
 }
-.status-panel, .missions, .leaderboard, .shop {
+.status-panel, .missions, .leaderboard, .bank, .tab-content {
   margin-top: 20px;
   background-color: rgba(255, 255, 255, 0.03);
   border: 1px solid #00f0ff44;
   border-radius: 10px;
   padding: 10px;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.tab-btn {
+  margin: 0 5px;
 }
