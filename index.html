@@ -8,16 +8,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="game-container">
         <h1>TapCoin</h1>
-        <div class="coin" id="tapCoin"></div>
-        <p>Баланс: <span id="coinCount">0</span> монет</p>
-        <button id="getBonus">Получить ежедневный бонус</button>
-        <h2>Магазин</h2>
-        <div class="shop">
-            <button id="buyClicker">Автокликер (10 монет)</button>
-            <p>Автокликеров: <span id="clickerCount">0</span></p>
+        <div class="coin-container">
+            <img src="logo.png" alt="TapCoin" class="coin" id="tapCoin">
         </div>
+        <div class="stats">
+            <p><strong>Монеты:</strong> <span id="coinCount">0</span></p>
+            <p><strong>Доход/сек:</strong> <span id="cps">0</span></p>
+        </div>
+        <button id="getBonus" class="bonus-button">Получить ежедневный бонус</button>
+
+        <div class="shop">
+            <h2>Магазин</h2>
+            <div class="shop-item">
+                <p>Автокликер (+1/сек) — 10 монет</p>
+                <button id="buyClicker">Купить</button>
+                <p>Уровень: <span id="clickerCount">0</span></p>
+            </div>
+        </div>
+        <button id="resetGame" class="reset-button">Сбросить прогресс</button>
     </div>
     <script src="script.js"></script>
 </body>
