@@ -1,33 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SHIFT COIN</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="game-container">
-        <h1>SHIFT COIN</h1>
-        <div class="coin-container">
-            <img src="logo.png" alt="SHIFT COIN" class="coin" id="tapCoin">
-        </div>
-        <div class="stats">
-            <p><strong>Монеты:</strong> <span id="coinCount">0</span></p>
-            <p><strong>Доход/сек:</strong> <span id="cps">0</span></p>
-        </div>
-        <button id="getBonus" class="bonus-button">Получить ежедневный бонус</button>
+if (coins >= 10) {
+        coins -= 10;
+        clickers += 1;
+        updateUI();
+        saveData();
+      }
+    });
 
-        <div class="shop">
-            <h2>Магазин</h2>
-            <div class="shop-item">
-                <p>Автокликер (+1/сек) — 10 монет</p>
-                <button id="buyClicker">Купить</button>
-                <p>Уровень: <span id="clickerCount">0</span></p>
-            </div>
-        </div>
-        <button id="resetGame" class="reset-button">Сбросить прогресс</button>
-    </div>
-    <script src="script.js"></script>
+    document.getElementById('getBonus').addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastBonus >= 86400000) {
+        coins += 50;
+        lastBonus = now;
+        updateUI();
+        saveData();
+        alert("Бонус получен!");
+      } else {
+        alert("Бонус доступен раз в 24 часа!");
+      }
+    });
+
+    document.getElementById('resetGame').addEventListener('click', () => {
+      if (confirm("Вы уверены?")) {
+        coins = 0;
+        clickers = 0;
+        lastBonus = 0;
+        saveData();
+        updateUI();
+      }
+    });
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(() => firebase.auth().createUserWithEmailAndPassword(email, password));
+    }
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        currentUser = user;
+        document.getElementById('authBlock').style.display = 'none';
+        document.getElementById('gameUI').style.display = 'block';
+        loadData();
+        loadLeaderboard();
+      }
+    });
+
+    function updateUI() {
+      coinCountEl.textContent = coins;
+      clickerCountEl.textContent = clickers;
+      cpsEl.textContent = clickers;
+    }
+
+    setInterval(() => {
+      coins += clickers;
+      updateUI();
+      saveData();
+    }, 1000);
+
+    function saveData() {
+      if (currentUser) {
+        firebase.database().ref('users/' + currentUser.uid).set({
+          email: currentUser.email,
+          coins: coins,
+          clickers: clickers,
+          lastBonus: lastBonus
+        });
+      }
+    }
+
+    function loadData() {
+      firebase.database().ref('users/' + currentUser.uid).once('value').then((snap) => {
+        const data = snap.val();
+        if (data) {
+          coins = data.coins || 0;
+          clickers = data.clickers || 0;
+          lastBonus = data.lastBonus || 0;
+          updateUI();
+        }
+      });
+    }
+
+    function loadLeaderboard() {
+      firebase.database().ref('users').orderByChild('coins').limitToLast(10).once('value').then((snapshot) => {
+        const leaderboardList = document.getElementById('leaderboardList');
+        leaderboardList.innerHTML = '';
+        const entries = [];
+        snapshot.forEach(child => {
+          entries.push({ email: child.val().email, coins: child.val().coins });
+        });
+        entries.reverse().forEach(entry => {
+          const li = document.createElement('li');
+          li.textContent = ${entry.email}: ${entry.coins};
+          leaderboardList.appendChild(li);
+        });
+      });
+    }
+
+    function transferCoins() {
+      const username = document.getElementById('recipient').value;
+      const amount = parseInt(document.getElementById('amount').value);
+      if (!username  !amount  amount <= 0) return alert("Неверные данные");
+
+      firebase.database().ref('users').orderByChild('email').equalTo(username).once('value').then((snapshot) => {
+        if (!snapshot.exists()) return alert("Пользователь не найден");
+
+        const recipientUID = Object.keys(snapshot.val())[0];
+        const recipientData = snapshot.val()[recipientUID];
+        if (coins < amount) return alert("Недостаточно монет");
+
+        coins -= amount;
+        const newCoins = (recipientData.coins || 0) + amount;
+
+        const updates = {};
+        updates['/users/' + currentUser.uid + '/coins'] = coins;
+        updates['/users/' + recipientUID + '/coins'] = newCoins;
+
+        firebase.database().ref().update(updates).then(() => {
+          updateUI();
+          alert("Перевод выполнен");
+        });
+      });
+    }
+  </script>
 </body>
 </html>
