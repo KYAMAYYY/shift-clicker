@@ -1,69 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SHIFT Clicker - Notcoin</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Простой Web-проект</title>
+    <link rel="stylesheet" href="style.css"> <!-- Подключение стилей -->
 </head>
 <body>
-  <div class="background-pixels"></div>
-  <div class="container">
-    <h1 class="glow">SHIFT Clicker</h1>
-
-    <div class="status-panel">
-      <p>SHIFT: <span id="shift">0</span></p>
-      <p>Тапов: <span id="taps">0</span></p>
-      <p>Мультипликатор: <span id="tapMultiplier">1</span></p>
+    <div class="container">
+        <h1>Добро пожаловать в нашу игру!</h1>
+        <p id="message">Нажмите кнопку, чтобы начать.</p>
+        <button id="startButton">Начать игру</button>
     </div>
 
-    <button id="tapBtn" class="glow-btn">ТАПНИ! +<span id="gainPerTap">1</span> SHIFT</button>
-
-    <div class="tabs">
-      <button class="tab-btn" onclick="switchTab('cloudFarm')">Облачный фарминг</button>
-      <button class="tab-btn" onclick="switchTab('netFarm')">Сетевой фарминг</button>
-      <button class="tab-btn" onclick="switchTab('store')">Магазин</button>
-      <button class="tab-btn" onclick="switchTab('quests')">Миссии</button>
-    </div>
-
-    <div id="cloudFarm" class="tab-content">
-      <h3>Облачный фарминг</h3>
-      <button id="upgradeCloudFarm" class="neon-btn">Улучшить</button>
-      <p>Уровень: <span id="cloudFarmLevel">0</span></p>
-      <p>Доход: <span id="cloudFarmIncome">0</span> SHIFT/сек</p>
-    </div>
-
-    <div id="netFarm" class="tab-content" style="display:none;">
-      <h3>Сетевой фарминг</h3>
-      <button id="upgradeNetFarm" class="neon-btn">Улучшить</button>
-      <p>Уровень: <span id="netFarmLevel">0</span></p>
-      <p>Доход: <span id="netFarmIncome">0</span> SHIFT/сек</p>
-    </div>
-
-    <div id="store" class="tab-content" style="display:none;">
-      <h3>Магазин</h3>
-      <button id="buyUpgrade1" class="neon-btn">Улучшение 1</button>
-      <button id="buyUpgrade2" class="neon-btn">Улучшение 2</button>
-    </div>
-
-    <div id="quests" class="tab-content" style="display:none;">
-      <h3>Миссии</h3>
-      <p>Выполните миссии, чтобы получить бонусы!</p>
-      <ul id="questsList">
-        <li>Накопить 100 SHIFT</li>
-        <li>Улучшить сетевой фарминг до 5 уровня</li>
-      </ul>
-    </div>
-
-    <div class="leaderboard">
-      <h3>Рейтинг</h3>
-      <ul id="leaderboardList">
-        <li>Подключение...</li>
-      </ul>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Подключение JavaScript -->
 </body>
 </html>
