@@ -1,4 +1,3 @@
-
 let coins = parseInt(localStorage.getItem('coins')) || 0;
 let clickers = parseInt(localStorage.getItem('clickers')) || 0;
 let lastBonus = parseInt(localStorage.getItem('lastBonus')) || 0;
@@ -19,7 +18,8 @@ function updateUI() {
     localStorage.setItem('clickers', clickers);
 }
 
-tapCoinEl.addEventListener('click', () => {
+tapCoinEl.addEventListener('click', (e) => {
+    e.preventDefault();
     coins += 1;
     updateUI();
 });
@@ -60,7 +60,6 @@ resetBtn.addEventListener('click', () => {
     }
 });
 
-// Доход от автокликеров
 setInterval(() => {
     coins += clickers;
     updateUI();
