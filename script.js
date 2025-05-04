@@ -1,79 +1,81 @@
-}
 let shift = 0;
 let taps = 0;
-let cloudLevel = 0;
-let netLevel = 0;
-let cloudCost = 10;
-let netCost = 20;
-let bankAmount = 0;
-let cloudOfflineIncome = 0;
-let netOnlineIncome = 0;
+let cloudFarmLevel = 0;
+let netFarmLevel = 0;
+let cloudFarmIncome = 0;
+let netFarmIncome = 0;
 
-// Обработка кнопки тап
-document.getElementById('tapBtn').addEventListener('click', function() {
+let cloudFarmCost = 100;
+let netFarmCost = 200;
+let upgrades = {
+  upgrade1: 50,
+  upgrade2: 100,
+};
+
+document.getElementById('tapBtn').addEventListener('click', () => {
   taps++;
   shift += 1;
-  document.getElementById('shift').innerText = shift;
-  document.getElementById('taps').innerText = taps;
+  updateUI();
 });
 
-// Обработка улучшения облачного фарминга
-document.getElementById('upgradeCloud').addEventListener('click', function() {
-  if (shift >= cloudCost && cloudLevel < 15) {
-    shift -= cloudCost;
-    cloudLevel++;
-    cloudCost = Math.floor(cloudCost * 10);
-    cloudOfflineIncome += 5;
+document.getElementById('upgradeCloudFarm').addEventListener('click', () => {
+  if (shift >= cloudFarmCost && cloudFarmLevel < 15) {
+    shift -= cloudFarmCost;
+    cloudFarmLevel++;
+    cloudFarmIncome += 2;
+    cloudFarmCost = Math.floor(cloudFarmCost * 1.5);
     updateUI();
   }
 });
 
-// Обработка улучшения сетевого фарминга
-document.getElementById('upgradeNet').addEventListener('click', function() {
-  if (shift >= netCost && netLevel < 15) {
-    shift -= netCost;
-    netLevel++;
-    netCost = Math.floor(netCost * 5);
-    netOnlineIncome += 2;
+document.getElementById('upgradeNetFarm').addEventListener('click', () => {
+  if (shift >= netFarmCost && netFarmLevel < 15) {
+    shift -= netFarmCost;
+    netFarmLevel++;
+    netFarmIncome += 3;
+    netFarmCost = Math.floor(netFarmCost * 1.5);
     updateUI();
   }
 });
 
-// Сбор банка
-document.getElementById('collectBank').addEventListener('click', function() {
-  if (shift >= 50000) {
-    bankAmount += shift * 0.1;
-    shift -= shift * 0.1;
+document.getElementById('buyUpgrade1').addEventListener('click', () => {
+  if (shift >= upgrades.upgrade1) {
+    shift -= upgrades.upgrade1;
+    upgrades.upgrade1 *= 1.5;
     updateUI();
   }
 });
 
-// Обновление интерфейса
+document.getElementById('buyUpgrade2').addEventListener('click', () => {
+  if (shift >= upgrades.upgrade2) {
+    shift -= upgrades.upgrade2;
+    upgrades.upgrade2 *= 1.5;
+    updateUI();
+  }
+});
+
 function updateUI() {
   document.getElementById('shift').innerText = shift;
-  document.getElementById('cloudLevel').innerText = cloudLevel;
-  document.getElementById('netLevel').innerText = netLevel;
-  document.getElementById('cloudCost').innerText = cloudCost;
-  document.getElementById('netCost').innerText = netCost;
-  document.getElementById('bankAmount').innerText = bankAmount;
+  document.getElementById('taps').innerText = taps;
+  document.getElementById('cloudFarmLevel').innerText = cloudFarmLevel;
+  document.getElementById('netFarmLevel').innerText = netFarmLevel;
+  document.getElementById('cloudFarmIncome').innerText = cloudFarmIncome;
+  document.getElementById('netFarmIncome').innerText = netFarmIncome;
 }
 
-// Таймер для облачного фарминга (офлайн)
-setInterval(function() {
-  shift += cloudOfflineIncome;
-  updateUI();
-}, 10000);
-
-// Таймер для сетевого фарминга (онлайн)
-setInterval(function() {
-  shift += netOnlineIncome;
-  updateUI();
-}, 5000);
-
-// Переключение вкладок
-function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach((el) => {
-    el.style.display = 'none';
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach((tab) => {
+    tab.style.display = 'none';
   });
-  document.getElementById(tab).style.display = 'block';
+  document.getElementById(tabId).style.display = 'block';
 }
+
+setInterval(() => {
+  shift += cloudFarmIncome;
+  updateUI();
+}, 1000);
+
+setInterval(() => {
+  shift += netFarmIncome;
+  updateUI();
+}, 1000);
