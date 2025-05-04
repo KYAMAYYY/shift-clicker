@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мини-игры с ставками</title>
-    <link rel="stylesheet" href="style.css"> <!-- Подключение стилей -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SHIFT Empire</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Добро пожаловать в Мини-игры с ставками!</h1>
+    <div class="app-container">
+        <h1>SHIFT Empire</h1>
+        <div class="user-panel">
+            <p id="username">Пользователь: <span id="user-name">guest</span></p>
+            <p id="balance">Баланс: <span id="user-balance">0</span> SHIFT</p>
+            <button onclick="getDailyReward()">Получить ежедневную награду</button>
+            <p id="reward-status"></p>
+        </div>
 
-        <p id="balanceText">Ваш баланс: 0 SHIFT</p>
+        <div class="tabs">
+            <button onclick="showTab('dice')">Кости</button>
+            <button onclick="showTab('tapGame')">Tap Game</button>
+            <button onclick="showTab('leaderboard')">Таблица лидеров</button>
+            <button onclick="showTab('transfer')">Перевод</button>
+        </div>
 
-        <!-- Кнопка для получения ежедневной награды -->
-        <button id="dailyRewardButton">Получить ежедневную награду</button>
-        <p id="dailyRewardMessage"></p>
+        <div id="dice" class="tab-content">
+            <h2>Игра в кости</h2>
+            <input type="number" id="dice-bet" placeholder="Введите ставку" min="1" />
+            <button onclick="rollDice()">Бросить кости</button>
+            <p id="dice-result"></p>
+        </div>
 
-        <!-- Кости -->
-        <h2>Мини-игра в кости</h2>
-        <p>Ставка: <input type="number" id="betAmount" value="10" min="1"></p>
-        <button id="rollDiceButton">Кинуть кости</button>
-        <p id="diceResult"></p>
-        <p id="betResult"></p>
+        <div id="tapGame" class="tab-content" style="display:none">
+            <h2>Tap Game</h2>
+            <button onclick="tapForCoins()">Кликни для монет</button>
+            <p id="tap-result"></p>
+        </div>
+
+        <div id="leaderboard" class="tab-content" style="display:none">
+            <h2>Таблица лидеров</h2>
+            <ul id="leaderboard-list"></ul>
+        </div>
+
+        <div id="transfer" class="tab-content" style="display:none">
+            <h2>Перевод SHIFT</h2>
+            <input type="text" id="transfer-user" placeholder="Имя получателя" />
+            <input type="number" id="transfer-amount" placeholder="Сумма" min="1" />
+            <button onclick="sendTransfer()">Отправить</button>
+            <p id="transfer-status"></p>
+        </div>
     </div>
 
-    <script src="script.js"></script> <!-- Подключение JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>

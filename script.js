@@ -1,71 +1,105 @@
-let userBalance = 100; // Начальный баланс
-let lastDailyReward = 0; // Время последнего получения награды (в секундах)
+let userData = {
+    username: "guest",
+    balance: 100,
+    lastReward: 0,
+};
 
-const balanceText = document.getElementById('balanceText');
-const dailyRewardButton = document.getElementById('dailyRewardButton');
-const dailyRewardMessage = document.getElementById('dailyRewardMessage');
-const rollDiceButton = document.getElementById('rollDiceButton');
-const betAmountInput = document.getElementById('betAmount');
-const diceResultText = document.getElementById('diceResult');
-const betResultText = document.getElementById('betResult');
+let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || {};
 
-// Обновляем текст баланса
-function updateBalance() {
-    balanceText.textContent = Ваш баланс: ${userBalance} SHIFT;
+function saveData() {
+    localStorage.setItem("userData", JSON.stringify(userData));
+    leaderboard[userData.username] = userData.balance;
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    updateUI();
 }
 
-// Получение ежедневной награды
-dailyRewardButton.addEventListener('click', () => {
-    const currentTime = Date.now() / 1000; // Время в секундах
-    const timeDifference = currentTime - lastDailyReward;
+function loadData() {
+    const saved = localStorage.getItem("userData");
+    if (saved) {
+        userData = JSON.parse(saved);
+    }
+    updateUI();
+}
 
-    if (timeDifference < 86400) {
-        // Если прошло меньше 24 часов
-        dailyRewardMessage.textContent = 'Вы уже получали ежедневную награду сегодня. Подождите до завтра.';
+function updateUI() {
+    document.getElementById("user-name").textContent = userData.username;
+    document.getElementById("user-balance").textContent = userData.balance;
+    updateLeaderboard();
+}
+
+function getDailyReward() {
+    const now = Date.now();
+    if (now - userData.lastReward > 86400000) {
+        const reward = Math.floor(Math.random() * 100) + 50;
+        userData.balance += reward;
+        userData.lastReward = now;
+        document.getElementById("reward-status").textContent = `Вы получили ${reward} SHIFT!`;
+        saveData();
+    } else {
+        document.getElementById("reward-status").textContent = "Награда уже получена сегодня.";
+    }
+}
+
+function rollDice() {
+    const bet = parseInt(document.getElementById("dice-bet").value);
+    if (isNaN(bet) || bet <= 0 || bet > userData.balance) {
+        document.getElementById("dice-result").textContent = "Недопустимая ставка.";
         return;
     }
-
-    // Если прошло больше 24 часов, даем награду
-    const reward = Math.floor(Math.random() * 50) + 50; // Случайная награда от 50 до 100 SHIFT
-    userBalance += reward;
-    lastDailyReward = currentTime; // Обновляем время последнего получения награды
-
-    dailyRewardMessage.textContent = Вы получили ${reward} SHIFT в качестве ежедневной награды!;
-    updateBalance();
-});
-
-// Мини-игра в кости с ставкой
-rollDiceButton.addEventListener('click', () => {
-    const betAmount = parseInt(betAmountInput.value, 10);
-
-    if (isNaN(betAmount) || betAmount <= 0) {
-        betResultText.textContent = 'Введите допустимую сумму ставки!';
-        return;
-    }
-
-    if (betAmount > userBalance) {
-        betResultText.textContent = 'У вас недостаточно средств для этой ставки!';
-        return;
-    }
-
-    // Генерация случайных чисел для двух костей
     const dice1 = Math.floor(Math.random() * 6) + 1;
     const dice2 = Math.floor(Math.random() * 6) + 1;
+    const total = dice1 + dice2;
+    let result = `Выпало ${dice1} и ${dice2} (сумма: ${total}). `;
 
-    diceResultText.textContent = Выпали кости: ${dice1} и ${dice2};
-
-    // Логика для выигрыша или проигрыша
-    const sum = dice1 + dice2;
-
-    if (sum > 7) {
-        // Выигрыш
-        userBalance += betAmount;
-        betResultText.textContent = Поздравляем! Вы выиграли ${betAmount} SHIFT!;
+    if (total > 7) {
+        userData.balance += bet;
+        result += `Вы выиграли ${bet} SHIFT!`;
     } else {
-        // Проигрыш
-        userBalance -= betAmount;
-        betResultText.textContent = Увы, вы проиграли ${betAmount} SHIFT.;
+        userData.balance -= bet;
+        result += `Вы проиграли ${bet} SHIFT.`;
+    }
+    document.getElementById("dice-result").textContent = result;
+    saveData();
+}
+
+function tapForCoins() {
+    const reward = Math.floor(Math.random() * 5) + 1;
+    userData.balance += reward;
+    document.getElementById("tap-result").textContent = `+${reward} SHIFT!`;
+    saveData();
+}
+
+function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.style.display = 'none';
+    });
+    document.getElementById(tabId).style.display = 'block';
+}
+
+function updateLeaderboard() {
+    const list = document.getElementById("leaderboard-list");
+    list.innerHTML = "";
+    const sorted = Object.entries(leaderboard).sort((a, b) => b[1] - a[1]);
+    sorted.forEach(([user, score]) => {
+        const item = document.createElement("li");
+        item.textContent = `${user}: ${score} SHIFT`;
+        list.appendChild(item);
+    });
+}
+
+function sendTransfer() {
+    const target = document.getElementById("transfer-user").value.trim();
+    const amount = parseInt(document.getElementById("transfer-amount").value);
+
+    if (!target || isNaN(amount) || amount <= 0 || amount > userData.balance) {
+        document.getElementById("transfer-status").textContent = "Ошибка перевода.";
+        return;
     }
 
-    updateBalance();
-});
+    leaderboard[target] = (leaderboard[target] || 0) + amount;
+    userData.balance -= amount;
+    document.getElementById("transfer-status").textContent = `Вы перевели ${amount} SHIFT пользователю ${target}`;
+    saveData();
+}
+
+window.onload = loadData;
