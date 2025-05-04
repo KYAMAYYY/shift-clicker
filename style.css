@@ -14,17 +14,19 @@ body {
 .container {
   text-align: center;
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
 
 /* Стили для заголовка */
 h1 {
   color: #333;
+  margin-bottom: 20px;
 }
 
-/* Стили для кнопки */
+/* Кнопки */
 button {
   background-color: #4CAF50;
   color: white;
@@ -34,15 +36,24 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 10px 0;
 }
 
 button:hover {
   background-color: #45a049;
 }
 
-/* Стили для текста сообщения */
-#message {
-  margin-top: 20px;
-  font-size: 18px;
+/* Стили для текста */
+#balanceText, #dailyRewardMessage, #diceResult, #betResult {
+  margin-top: 10px;
+  font-size: 16px;
   color: #555;
+}
+
+/* Стили для ввода ставки */
+input[type="number"] {
+  padding: 5px;
+  font-size: 16px;
+  width: 100px;
+  margin-top: 10px;
 }

@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Простой Web-проект</title>
+    <title>Мини-игры с ставками</title>
     <link rel="stylesheet" href="style.css"> <!-- Подключение стилей -->
 </head>
 <body>
     <div class="container">
-        <h1>Добро пожаловать в нашу игру!</h1>
-        <p id="message">Нажмите кнопку, чтобы начать.</p>
-        <button id="startButton">Начать игру</button>
+        <h1>Добро пожаловать в Мини-игры с ставками!</h1>
+
+        <p id="balanceText">Ваш баланс: 0 SHIFT</p>
+
+        <!-- Кнопка для получения ежедневной награды -->
+        <button id="dailyRewardButton">Получить ежедневную награду</button>
+        <p id="dailyRewardMessage"></p>
+
+        <!-- Кости -->
+        <h2>Мини-игра в кости</h2>
+        <p>Ставка: <input type="number" id="betAmount" value="10" min="1"></p>
+        <button id="rollDiceButton">Кинуть кости</button>
+        <p id="diceResult"></p>
+        <p id="betResult"></p>
     </div>
 
     <script src="script.js"></script> <!-- Подключение JavaScript -->
