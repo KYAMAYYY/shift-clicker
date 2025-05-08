@@ -1,70 +1,53 @@
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle, #1c1c1c, #000000);
-    color: #ffffff;
-    text-align: center;
-    touch-action: manipulation;
 }
 
 .game-container {
-    padding: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
 }
 
 h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    color: #4CAF50;
 }
 
-.coin-container {
-    margin: 30px auto;
-}
-
-.coin {
-    width: 180px;
-    height: 180px;
-    cursor: pointer;
-    transition: transform 0.1s;
-    user-select: none;
-    -webkit-user-drag: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.coin:active {
-    transform: scale(0.95);
-}
-
-.stats, .shop {
-    margin: 20px 0;
-}
-
-.shop-item {
-    margin-bottom: 15px;
+.status {
+    margin-bottom: 20px;
 }
 
 button {
     padding: 10px 20px;
-    font-size: 16px;
-    background: #f4c430;
-    color: #000;
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background 0.2s;
+    margin: 10px;
 }
 
-button:hover {
-    background: #ffd700;
+button:disabled {
+    background-color: #ccc;
 }
 
-.bonus-button {
-    background: #3cb371;
-    color: white;
-    margin: 15px 0;
-}
-
-.reset-button {
-    background: #dc143c;
-    color: white;
+.battle-log {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    height: 100px;
+    overflow-y: scroll;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
 }

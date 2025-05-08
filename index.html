@@ -1,34 +1,34 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>TapCoin MiniApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <title>Hamster Combat</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>TapCoin</h1>
-        <div class="coin-container">
-            <img src="logo.png" alt="TapCoin" class="coin" id="tapCoin">
+        <h1>Hamster Combat</h1>
+        <div id="player-status" class="status">
+            <p>Здоровье: <span id="player-health">100</span></p>
+            <p>Сила атаки: <span id="player-power">15</span></p>
         </div>
-        <div class="stats">
-            <p><strong>Монеты:</strong> <span id="coinCount">0</span></p>
-            <p><strong>Доход/сек:</strong> <span id="cps">0</span></p>
-        </div>
-        <button id="getBonus" class="bonus-button">Получить ежедневный бонус</button>
 
-        <div class="shop">
-            <h2>Магазин</h2>
-            <div class="shop-item">
-                <p>Автокликер (+1/сек) — 10 монет</p>
-                <button id="buyClicker">Купить</button>
-                <p>Уровень: <span id="clickerCount">0</span></p>
-            </div>
+        <div id="enemy-status" class="status">
+            <p>Здоровье противника: <span id="enemy-health">100</span></p>
+            <p>Сила атаки противника: <span id="enemy-power">12</span></p>
         </div>
-        <button id="resetGame" class="reset-button">Сбросить прогресс</button>
+
+        <div class="actions">
+            <button id="start-btn" onclick="startGame()">Начать игру</button>
+            <button id="attack-btn" onclick="attack()" disabled>Атаковать</button>
+        </div>
+
+        <div id="battle-log" class="battle-log">
+            <p>Жди начала боя...</p>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

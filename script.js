@@ -1,68 +1,42 @@
-let coins = parseInt(localStorage.getItem('coins')) || 0;
-let clickers = parseInt(localStorage.getItem('clickers')) || 0;
-let lastBonus = parseInt(localStorage.getItem('lastBonus')) || 0;
+let playerHealth = 100;
+let playerPower = 15;
+let enemyHealth = 100;
+let enemyPower = 12;
 
-const coinCountEl = document.getElementById('coinCount');
-const clickerCountEl = document.getElementById('clickerCount');
-const cpsEl = document.getElementById('cps');
-const tapCoinEl = document.getElementById('tapCoin');
-const buyClickerBtn = document.getElementById('buyClicker');
-const getBonusBtn = document.getElementById('getBonus');
-const resetBtn = document.getElementById('resetGame');
+function startGame() {
+    document.getElementById("start-btn").disabled = true;
+    document.getElementById("attack-btn").disabled = false;
+    document.getElementById("battle-log").innerHTML = "<p>Игра началась! Готовься к бою!</p>";
 
-function updateUI() {
-    coinCountEl.textContent = coins;
-    clickerCountEl.textContent = clickers;
-    cpsEl.textContent = clickers;
-    localStorage.setItem('coins', coins);
-    localStorage.setItem('clickers', clickers);
+    // Обновление статуса игрока
+    document.getElementById("player-health").textContent = playerHealth;
+    document.getElementById("player-power").textContent = playerPower;
+
+    // Обновление статуса противника
+    document.getElementById("enemy-health").textContent = enemyHealth;
+    document.getElementById("enemy-power").textContent = enemyPower;
 }
 
-tapCoinEl.addEventListener('click', (e) => {
-    e.preventDefault();
-    coins += 1;
-    updateUI();
-});
+function attack() {
+    // Игрок наносит урон
+    enemyHealth -= playerPower;
+    document.getElementById("enemy-health").textContent = enemyHealth;
 
-buyClickerBtn.addEventListener('click', () => {
-    const cost = 10;
-    if (coins >= cost) {
-        coins -= cost;
-        clickers += 1;
-        updateUI();
-    } else {
-        alert("Недостаточно монет!");
+    // Противник наносит урон
+    playerHealth -= enemyPower;
+    document.getElementById("player-health").textContent = playerHealth;
+
+    // Обновление журнала боя
+    let log = document.getElementById("battle-log");
+    log.innerHTML += <p>Ты атаковал противника! Его здоровье: ${enemyHealth}</p>;
+    log.innerHTML += <p>Противник атаковал тебя! Твое здоровье: ${playerHealth}</p>;
+
+    // Проверка на победу или поражение
+    if (enemyHealth <= 0) {
+        log.innerHTML += "<p>Ты победил противника!</p>";
+        document.getElementById("attack-btn").disabled = true;
+    } else if (playerHealth <= 0) {
+        log.innerHTML += "<p>Ты проиграл! Попробуй снова.</p>";
+        document.getElementById("attack-btn").disabled = true;
     }
-});
-
-getBonusBtn.addEventListener('click', () => {
-    const now = Date.now();
-    if (now - lastBonus >= 86400000) {
-        const bonus = 50;
-        coins += bonus;
-        lastBonus = now;
-        localStorage.setItem('lastBonus', lastBonus);
-        updateUI();
-        alert(`Вы получили ${bonus} монет!`);
-    } else {
-        const hoursLeft = Math.ceil((86400000 - (now - lastBonus)) / 3600000);
-        alert(`Приходите позже! До следующего бонуса ~${hoursLeft}ч.`);
-    }
-});
-
-resetBtn.addEventListener('click', () => {
-    if (confirm("Вы уверены, что хотите сбросить прогресс?")) {
-        coins = 0;
-        clickers = 0;
-        lastBonus = 0;
-        localStorage.clear();
-        updateUI();
-    }
-});
-
-setInterval(() => {
-    coins += clickers;
-    updateUI();
-}, 1000);
-
-updateUI();
+}
