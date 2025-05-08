@@ -1,53 +1,49 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background-color: #0f0f1c;
+  color: #00f6ff;
 }
 
-.game-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1 {
-    font-size: 24px;
-    color: #4CAF50;
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #1a1a2e;
+  color: #00f6ff;
 }
 
-.status {
-    margin-bottom: 20px;
+.tap-area {
+  margin: 20px 0;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
+.tap-area img {
+  width: 150px;
+  border-radius: 50%;
 }
 
-button:disabled {
-    background-color: #ccc;
+.menu button {
+  margin: 5px;
+  background: #121212;
+  border: 1px solid #00f6ff;
+  color: #00f6ff;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.battle-log {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #333;
-    text-align: left;
-    height: 100px;
-    overflow-y: scroll;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
+.tab {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tab.active {
+  display: flex;
 }
