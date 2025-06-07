@@ -1,65 +1,77 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Игровое приложение</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #000;
-      color: #fff;
-    }
-    .container {
-      padding: 10px;
-    }
-    .main-game-frame iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      margin-top: 15px;
-      padding: 15px;
-      background-color: #ff9800;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      font-size: 18px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background-color: #e68900;
-    }
-  </style>
+    <title>
+        Mega Joker    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+            color: #fff;
+        }
+        object, embed, iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        iframe {
+            border: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .game-frame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            min-height: 100%;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const setWidthHeight = function (element, width, height) {
+                element.style.width = width + 'px';
+                element.style.height = height + 'px';
+            };
+
+            const recalculateSizes = function () {
+                const winWidth = window.innerWidth,
+                    winHeight = window.innerHeight;
+
+                const $elemForScreenSize = document.querySelectorAll('[data-size-full-screen]');
+
+                $elemForScreenSize && $elemForScreenSize.forEach(function (el) {
+                    setWidthHeight(el, winWidth, winHeight);
+                });
+
+                window.scrollTo(0, 0);
+            };
+            window.addEventListener('resize', recalculateSizes);
+            window.addEventListener('orientationchange', recalculateSizes);
+        }
+    </script>
 </head>
 <body>
-  <div class="container">
-    <div class="main-game-frame">
-      <iframe src="https://games-cv.com/mega_joker?refCode=wp_w11991p43_"></iframe>
-      <div class="btn" onclick="openMoneyLink()">Играть на деньги</div>
+
+    <div class="game-frame">
+        <iframe src="https://igame-nvm.flameful.games/megajoker?tkn=demo_ee8ddf92-a418-4dd4-a9a2-d29dffc1f859_1_a1abcf66ccb5e5c898174b0ef0ca0d71&lang=ru"
+                align="center"
+                allowfullscreen
+                data-size-full-screen
+                allow="autoplay"
+        ></iframe>
     </div>
-  </div>
 
-  <script>
-    // Проверяем, есть ли доступ к Telegram WebApp
-    if (window.Telegram.WebApp) {
-      Telegram.WebApp.ready();
-      Telegram.WebApp.expand(); // Расширяет окно на весь экран
-    }
-
-    function openMoneyLink() {
-      if (window.Telegram.WebApp) {
-        Telegram.WebApp.openLink("https://yourdomain.com/goto/money");
-      } else {
-        window.location.href = "https://yourdomain.com/goto/money";
-      }
-    }
-  </script>
 </body>
 </html>
