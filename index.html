@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SHIFT Clicker — Cyberpunk</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="background-pixels"></div>
+  <div class="container">
+    <h1 class="glow">SHIFT Clicker</h1>
+
+    <div class="status-panel">
+      <p>Уровень: <span id="level">1</span></p>
+      <p>SHIFT: <span id="shift">0</span></p>
+      <p>Taps: <span id="taps">0</span></p>
+    </div>
+
+    <button id="tapBtn" class="glow-btn">ТАПНИ! +<span id="gainPerTap">1</span> SHIFT</button>
+
+    <div class="tabs">
+      <button class="tab-btn" onclick="switchTab('cloud')">Облачный Фарминг</button>
+      <button class="tab-btn" onclick="switchTab('net')">Сетевой Фарминг</button>
+    </div>
+
+    <div id="cloud" class="tab-content">
+      <h3 class="glow-small">Облачный Фарминг</h3>
+      <p>Фармит в оффлайне. Макс 15 уровней.</p>
+      <button id="upgradeCloud" class="neon-btn">Улучшить (x10 цена)</button>
+      <p>Уровень: <span id="cloudLevel">0</span></p>
+      <p>Стоимость улучшения: <span id="cloudCost">10</span> SHIFT</p>
+    </div>
+
+    <div id="net" class="tab-content" style="display:none;">
+      <h3 class="glow-small">Сетевой Фарминг</h3>
+      <p>Фармит в онлайне. Макс 15 уровней.</p>
+      <button id="upgradeNet" class="neon-btn">Улучшить (x5 цена)</button>
+      <p>Уровень: <span id="netLevel">0</span></p>
+      <p>Стоимость улучшения: <span id="netCost">20</span> SHIFT</p>
+    </div>
+
+    <div class="bank">
+      <h3 class="glow-small">SHIFT Банк</h3>
+      <p>10% SHIFT уходит в банк. Можно собрать при 50000.</p>
+      <p>Банк: <span id="bankAmount">0</span></p>
+      <button id="collectBank" class="neon-btn">Собрать банк</button>
+    </div>
+
+    <div class="missions">
+      <h3 class="glow-small">Миссии</h3>
+      <ul id="missionsList">
+        <li>Сделай 10 тапов</li>
+        <li>Улучшить сетевой фарминг</li>
+        <li>Накопить 50K SHIFT</li>
+      </ul>
+    </div>
+
+    <div class="leaderboard">
+      <h3 class="glow-small">Рейтинг</h3>
+      <ul id="leaderboardList">
+        <li>Подключение...</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
