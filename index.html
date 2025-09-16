@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tap App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="top-bar">
+      <span id="username">@username</span>
+      <span id="balance">0 SHIFT</span>
+    </div>
+    <div class="tap-area" id="tapArea">
+      <img id="coin" src="coin.png" alt="coin">
+    </div>
+    <div class="menu">
+      <button onclick="openTab('upgrades')">Улучшения</button>
+      <button onclick="openTab('staking')">Стейкинг</button>
+      <button onclick="openTab('daily')">Награды</button>
+      <button onclick="openTab('leaderboard')">Топ 100</button>
+      <button onclick="openTab('profile')">Профиль</button>
+    </div>
+    <div class="tab" id="upgradesTab">
+      <h2>Улучшения</h2>
+      <button onclick="upgradeClick()">Клик: x<span id="clickLevel">1</span> (Стоимость: <span id="clickCost">10</span>)</button>
+      <button onclick="upgradePassive()">Пассив: x<span id="passiveLevel">1</span> (Стоимость: <span id="passiveCost">20</span>)</button>
+    </div>
+    <div class="tab" id="stakingTab">
+      <h2>Стейкинг</h2>
+      <button onclick="stake(0.8, 24)">24 ч. (+0.8%)</button>
+      <button onclick="stake(7.1, 168)">168 ч. (+7.1%)</button>
+      <button onclick="stake(29.5, 720)">720 ч. (+29.5%)</button>
+    </div>
+    <div class="tab" id="dailyTab">
+      <h2>Ежедневные награды</h2>
+      <button onclick="claimDaily()">Забрать награду</button>
+      <p id="dailyStatus"></p>
+    </div>
+    <div class="tab" id="leaderboardTab">
+      <h2>Топ 100</h2>
+      <ul id="leaderboard"></ul>
+    </div>
+    <div class="tab" id="profileTab">
+      <h2>Профиль</h2>
+      <p id="profileUsername"></p>
+      <h3>История переводов:</h3>
+      <ul id="transferHistory"></ul>
+      <input id="sendTo" placeholder="@username">
+      <input id="sendAmount" placeholder="Сумма">
+      <button onclick="sendCoins()">Перевести</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
